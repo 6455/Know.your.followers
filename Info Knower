@@ -1,0 +1,51 @@
+try:
+    import sys
+    import requests
+    from time import sleep
+    import time
+    from time import sleep
+except Exception as e:
+    print(e)
+    sys.exit()
+def slow(M):
+    for c in M + '\n':
+	    sys.stdout.write(c)
+	    sys.stdout.flush()
+	    time.sleep(1. / 50)
+
+
+rs = requests.session()
+user = input(f"[?] Enter The Target : ")
+head = {
+    'HOST': "www.instagram.com",
+    'KeepAlive' : 'True',
+    'user-agent' : "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36",
+    'Cookie': 'cookie',
+    'Accept' : "*/*",
+    'ContentType' : "application/x-www-form-urlencoded",
+    "X-Requested-With" : "XMLHttpRequest",
+    "X-IG-App-ID": "936619743392459",
+    "X-Instagram-AJAX" : "missing",
+    "X-CSRFToken" : "missing",
+    "Accept-Language" : "en-US,en;q=0.9"
+}
+try:
+    url = f'https://www.instagram.com/{user}/?__a=1'
+    info = rs.get(url, headers=head).json()
+except Exception:
+    print(f"[-] Maybe This Time Tool Is Broken Try Liter Or Restart Your Device..,")
+    sys.exit()
+
+# ['graphql']['user']
+try:
+    followers = str(info['graphql']['user']['edge_followed_by']['count'])
+    following = str(info['graphql']['user']['edge_follow']['count'])
+except Exception:
+    print(f"[-] Check The Target Pls..,")
+    sys.exit()
+
+print(f"""
+Followers :  {followers} 
+Following :  {following} 
+""")
+print ('Done Baby | @x8i4')
